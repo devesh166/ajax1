@@ -1,0 +1,9 @@
+<script>
+var Data;
+var ourRequest = new XMLHttpRequest();
+  ourRequest.open('GET', 'https://jsonplaceholder.typicode.com/posts');
+  ourRequest.onload = function() {
+   Data = JSON.parse(ourRequest.responseText)
+  }
+  ourRequest.send();
+</script>
