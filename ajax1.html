@@ -1,9 +1,273 @@
-<script>
-var Data;
-var ourRequest = new XMLHttpRequest();
-  ourRequest.open('GET', 'https://jsonplaceholder.typicode.com/posts');
-  ourRequest.onload = function() {
-   Data = JSON.parse(ourRequest.responseText)
-  }
-  ourRequest.send();
-</script>
+<html>
+
+<head>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+    <script>
+        var data;
+        var flag2 = true;
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('GET', 'https://jsonplaceholder.typicode.com/posts', false);
+        ourRequest.onload = function () {
+            data = JSON.parse(ourRequest.responseText)
+            //console.log(Data)
+        }
+        ourRequest.send();
+        createTable();
+        var table;
+        function createTable() {
+             table = document.createElement("table");
+            table.setAttribute("id","mytable")
+            var thead = document.createElement("thead");
+            var trhead = document.createElement("tr");
+            var th = [];
+
+            var tablekeys = Object.keys(data[0]);
+            var tableHeadData = [];
+            tablekeys.map((element, index) => {
+                var id = "head" + index;
+                th[index] = document.createElement("th");
+                th[index].setAttribute("id", id)
+                tableHeadData[index] = document.createTextNode(element);
+                th[index].appendChild(tableHeadData[index])
+                trhead.appendChild(th[index])
+
+
+            })
+
+            // tableh.appendChild(tableheadrow);
+
+            thead.appendChild(trhead)
+            //tablehead.appendChild(tableheadrow)
+            table.appendChild(thead);
+            var tbody = document.createElement("tbody");
+            var tr = [];
+
+            data.map((element, index) => {
+
+                tr[index] = document.createElement("tr")
+                let values = Object.values(element);
+                var td = [];
+                var ref = index;
+                values.map((ele, index) => {
+                    td[index] = document.createElement("td")
+                    tableHeadData = document.createTextNode(ele);
+                    td[index].appendChild(tableHeadData);
+                    tr[ref].appendChild(td[index]);
+                })
+
+                tbody.appendChild(tr[index])
+
+
+            })
+
+            table.appendChild(tbody);
+          
+            document.body.appendChild(table)
+
+
+
+          
+            console.log(document.getElementById("mytable"));
+            console.log(tablekeys)
+
+            document.getElementById("head0").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sorttext();
+                createTable();
+            })
+            document.getElementById("head1").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sorttext();
+                createTable();
+            })
+            document.getElementById("head2").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sortstring();
+                createTable();
+            })
+            document.getElementById("head3").addEventListener("click",function(){
+                document.getElementById("mytable").remove();
+                sortstring1();
+                createTable();
+            })
+            // document.getElementById(id).addEventListener("click", );
+            // document.getElementById(id).addEventListener("click", );
+           //document.getElementById("mytable").remove();
+      
+           // document.getElementById("mytable").remove();
+
+        
+            // tablekeys.map((element, index) => {
+            //     //console.log("fdg")
+                
+            //     var id = "head" + index;
+               
+            //   // temp.remove();
+               
+            //     if(index<2){
+            //         document.getElementById(id).addEventListener("click", );
+            //     }
+            //     else{
+            //         document.getElementById(id).addEventListener("click", sorttext);
+            //     }
+            //     createTable();
+
+            //     })
+
+
+
+
+
+        }
+
+
+        function sorttext() {
+            if (flag2) {
+                data.sort(function (a, b) {
+                    var textA = a.id ;
+                    var textB = b.id;
+                    if (textA < textB)
+                        return -1
+                    if (textA > textB)
+                        return 1
+                    return 0;
+                })
+
+                flag2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var textA = a.id ;
+                    var textB = b.id;
+                    if (textA < textB)
+                        return 1
+                    if (textA > textB)
+                        return -1
+                    return 0;
+                })
+
+                flag2 = true;
+
+
+            }
+             
+
+        }
+        function sorttext1() {
+            if (flag2) {
+                data.sort(function (a, b) {
+                    var textA = a.userId ;
+                    var textB = b.userId;
+                    if (textA < textB)
+                        return -1
+                    if (textA > textB)
+                        return 1
+                    return 0;
+                })
+
+                flag2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var textA = a.id ;
+                    var textB = b.id;
+                    if (textA < textB)
+                        return 1
+                    if (textA > textB)
+                        return -1
+                    return 0;
+                })
+
+                flag2 = true;
+
+
+            }
+             
+
+        }
+        function sortstring() {
+            if (flag2) {
+                data.sort(function (a, b) {
+                    var textA = a.title ;
+                    var textB = b.title;
+                    if (textA < textB)
+                        return -1
+                    if (textA > textB)
+                        return 1
+                    return 0;
+                })
+
+                flag2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var textA = a.title;
+                    var textB = b.title;
+                    if (textA < textB)
+                        return 1
+                    if (textA > textB)
+                        return -1
+                    return 0;
+                })
+
+                flag2 = true;
+
+
+            }
+             
+
+        }
+        function sortstring1() {
+            if (flag2) {
+                data.sort(function (a, b) {
+                    var textA = a.body;
+                    var textB = b.body;
+                    if (textA < textB)
+                        return -1
+                    if (textA > textB)
+                        return 1
+                    return 0;
+                })
+
+                flag2 = false;
+
+            } else {
+                data.sort(function (a, b) {
+                    var textA = a.body;
+                    var textB = b.body;
+                    if (textA < textB)
+                        return 1
+                    if (textA > textB)
+                        return -1
+                    return 0;
+                })
+
+                flag2 = true;
+
+
+            }
+             
+
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>
